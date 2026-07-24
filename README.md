@@ -8,6 +8,12 @@ Curated **offline** collection of Sega Dreamcast engineering specs, programmer g
 - [Dreamcast Hardware Specification Outline](files/official/Dreamcast_Hardware_Specification_Outline.pdf) (~40 pp., 1999)
 - [Dreamcast/Dev.Box System Architecture](files/official/DreamcastDevBoxSystemArchitecture.pdf) (407 pp., Rev 99/09/02)
 - [Software Creation Standards Guidebook](files/official/scstandards.pdf)
+- [AICA Sound-block User's Manual](files/official/AICA_E.pdf) (`AICA_E.pdf`)
+- [Peripheral hardware (controller) 01_sdhwr](files/official/01_sdhwr100e.pdf)
+- [VMS / VMU related](files/official/02_VMS100e.pdf)
+- [SH-4 access notes](files/official/SH4_access990312_e.pdf)
+- [Ft6 tech note](files/official/Ft6_090e.pdf)
+
 - [Hardware outline (Word, Kochise)](files/hardware/E_DC_HW_outline.doc)
 - [DC Schematic](files/hardware/DC%20Schematic.pdf)
 - [Sega Dreamcast Game Console BPT](files/hardware/Sega_Dreamcast_Game_Console-BPT.pdf)

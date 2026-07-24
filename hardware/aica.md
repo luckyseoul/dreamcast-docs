@@ -3,6 +3,7 @@
 Yamaha AICA (FQ8005) with integrated ARM7DI core.
 
 ## Local Docs
+- Official: [`files/official/AICA_E.pdf`](../files/official/AICA_E.pdf)
 - Community notes: [`files/aica/aica.txt`](../files/aica/aica.txt), [`files/aica/aica_v08.txt`](../files/aica/aica_v08.txt)
 - ARM7TDMI technical reference manuals (core used by AICA): all PDFs in [`files/aica/`](../files/aica/)
 - System context: [Hardware Outline](../files/official/Dreamcast_Hardware_Specification_Outline.pdf), [Dev.Box Architecture](../files/official/DreamcastDevBoxSystemArchitecture.pdf)

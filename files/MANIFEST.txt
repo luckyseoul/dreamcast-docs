@@ -36,9 +36,14 @@ files/mcpp/maplewire.html
 files/mcpp/memory.html
 files/mcpp/pvr.html
 files/mcpp/sw.html
+files/official/01_sdhwr100e.pdf
+files/official/02_VMS100e.pdf
+files/official/AICA_E.pdf
 files/official/DreamcastDevBoxSystemArchitecture.pdf
 files/official/Dreamcast_Hardware_Specification_Outline.pdf
+files/official/Ft6_090e.pdf
 files/official/scstandards.pdf
+files/official/SH4_access990312_e.pdf
 files/powervr/2700G_PowerVR_30094801.pdf
 files/powervr/dcgfx.pdf
 files/powervr/dc-video.pdf
