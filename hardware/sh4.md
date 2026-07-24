@@ -2,12 +2,12 @@
 
 Hitachi SuperH SH-4 (SH7091 variant in Dreamcast) @ 200 MHz.
 
-## Official Manuals
-- Programming Manual: http://mc.pp.se/dc/files/h14tp003d2.pdf
-- Hardware Manual: http://mc.pp.se/dc/files/h14th002d2.pdf
-- Product Overview: http://mc.pp.se/dc/files/h14sf001d2.pdf
+## Local Official Manuals
+- Programming Manual: [`files/sh4/h14tp003d2.pdf`](../files/sh4/h14tp003d2.pdf)
+- Hardware Manual: [`files/sh4/h14th002d2.pdf`](../files/sh4/h14th002d2.pdf)
+- Product Overview: [`files/sh4/h14sf001d2.pdf`](../files/sh4/h14sf001d2.pdf)
 
-Additional Renesas SH7750 series hardware manuals available on Renesas site (search SH7750).
+Offline RE notes: [`files/mcpp/cpu.html`](../files/mcpp/cpu.html)
 
 ## Key Specs (from Hardware Outline)
 - 32-bit RISC, superscalar, 5-stage pipeline
@@ -16,4 +16,4 @@ Additional Renesas SH7750 series hardware manuals available on Renesas site (sea
 - MMU, 4-channel DMAC, SCI, etc.
 - External bus 100 MHz, little-endian in Dreamcast config
 
-See also Dev.Box System Architecture for integration details and memory mapping.
+See also [Dev.Box System Architecture](../files/official/DreamcastDevBoxSystemArchitecture.pdf) for integration details and memory mapping.

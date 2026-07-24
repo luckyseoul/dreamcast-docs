@@ -1,12 +1,12 @@
 # Progress
 
 - [x] Repository created
-- [x] Initial README with primary sources and structure
-- [ ] Populate hardware/ subdocs (sh4, holly, aica, gdrom, maple, memory, boot)
-- [ ] official/ index of SDK volumes and PDFs
-- [ ] software/ (KOS, Shinobi/Kamui notes)
-- [ ] tools/
-- [ ] reverse-engineering/ quirks and gaps
-- [ ] Additional service manuals, schematics links
+- [x] Offline PDF/HTML harvest under `files/`
+- [x] Official Hardware Outline + Dev.Box Architecture + scstandards
+- [x] SH-4 manuals (h14tp/h14th/h14sf)
+- [x] AICA notes + ARM7 refs, Maple, GD-ROM, PowerVR, G2, VMU docs
+- [x] Comstedt + Copetti HTML snapshots
+- [x] Markdown indexes rewritten to local paths
+- [x] Full Kochise tree archived at `/mnt/storage/models/archive/docs-mirrors/Kochise-dreamcast-docs` (not in git)
 
-Sources verified accessible as of 2026-07-23.
+_Updated 2026-07-24_

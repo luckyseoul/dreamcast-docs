@@ -2,10 +2,10 @@
 
 Yamaha AICA (FQ8005) with integrated ARM7DI core.
 
-## Docs
-- AICA (FQ8005) Sound-block User's Manual (AICA_E.pdf on SegaRetro)
-- Hardware Outline / Dev.Box Architecture sections
-- Kochise/dreamcast-docs/AICA (includes ARM7TDMI docs)
+## Local Docs
+- Community notes: [`files/aica/aica.txt`](../files/aica/aica.txt), [`files/aica/aica_v08.txt`](../files/aica/aica_v08.txt)
+- ARM7TDMI technical reference manuals (core used by AICA): all PDFs in [`files/aica/`](../files/aica/)
+- System context: [Hardware Outline](../files/official/Dreamcast_Hardware_Specification_Outline.pdf), [Dev.Box Architecture](../files/official/DreamcastDevBoxSystemArchitecture.pdf)
 
 ## Specs
 - 64 channels PCM/ADPCM/FM
@@ -14,5 +14,3 @@ Yamaha AICA (FQ8005) with integrated ARM7DI core.
 - RTC (battery backed)
 - G2 bus interface to HOLLY
 - ARM7 for driver execution (~2.8 MHz effective clock domain)
-
-See also mc.pp.se and emulator audio cores for practical RE.

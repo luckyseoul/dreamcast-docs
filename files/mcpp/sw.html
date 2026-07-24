@@ -1,0 +1,305 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+
+<html>
+
+<head>
+
+<title>Dreamcast Programming - Software</title>
+
+</head>
+
+<body link="#6699cc" text="white" vlink="#6677cc" alink="red" bgcolor="black">
+<top>
+
+<img align="right" alt="" src="/dc/dc_mark.gif">
+
+<p><img alt="Software" height="43" src="/_internal/graphic_text/asw4kq4vlpnfxtobd3366p2z0ge0klc$r06nh5wsihwgkknk8iz49tfkrm0bkd4" style="border: none;" valign="top" width="132" /></p>
+
+<br clear="right">
+
+
+
+<p><img alt="APIs and file formats" height="35" src="/_internal/graphic_text/hwhvnjki1vaw5xeayq6ziu4zt3iviz1$7i96p3vu5agy5u7helmvzdyynewmhbg" style="border: none;" valign="top" width="254" /></p>
+
+
+
+<dl>
+
+
+<dt><a href="syscalls.html">System Calls</a></dt>
+
+
+<dd>A list of the system calls provided by the boot ROM</dd>
+
+
+<dt><a href="cdr.html">Bootable CD-Rs</a></dt>
+
+
+<dd>The structure a normal CD should have to be bootable by the Dreamcast</dd>
+
+
+<dt><a href="ip.bin.html">IP.BIN and 1ST_READ.BIN</a></dt>
+
+
+<dd>Descriptions of the two files needed to boot a Dreamcast from GD/CD and how to create them.</dd>
+
+
+<dt><a href="ip0000.bin.html">IP0000.BIN files</a></dt>
+
+
+<dd>Descriptions of the IP0000.BIN which is present on all Dreamcast discs and contain information about the disc.</dd>
+
+
+<dt><a href="vms/fw.html">VMS Firmware</a></dt>
+
+
+<dd>Descriptions of VMS firmware calls and system variables.</dd>
+
+
+<dt><a href="vms/flashmem.html">VMS Flashrom</a></dt>
+
+
+<dd>Organization of the VMS 128k flash memory.</dd>
+
+
+<dt><a href="vms/fileheader.html">VMS File Header</a></dt>
+
+
+<dd>Structure of the header that is present at the beginning of every
+VMS file (or rather a bit in if it's a game file :).</dd>
+
+
+<dt><a href="vms/vmi.html">VMI files</a></dt>
+
+
+<dd>Structure of VMI files (used when downloading VMS games and data from
+the web).</dd>
+
+
+<dt><a href="vms/icondata.html">ICONDATA_VMS files</a></dt>
+
+
+<dd>Structure of ICONDATA_VMS files (used as custom icons for VMS units).</dd>
+
+
+</dl>
+
+
+
+
+<p><img alt="Development tools" height="35" src="/_internal/graphic_text/hwhvnjki1vaw5xeayq6ziu4zt3iviz1$tudnxfr4t6rpz79rh42am5yq8jydosf" style="border: none;" valign="top" width="232" /></p>
+
+
+
+<dl>
+
+
+<dt><a href="files/newlib-1.12.0.tar.gz">newlib 1.12.0</a></dt>
+
+
+<dd>libc implementation for SH and ARM, precompiled and ready to use.
+The older version <a href="files/newlib-1.9.0.tar.gz">1.9.0</a> is also available.</dd>
+
+
+<dt><a href="ipslave.html">IP upload slave</a></dt>
+
+
+<dd>A program for the Dreamcast that allows new software to be uploaded through the ethernet interface and run.</dd>
+
+
+<dt><a href="serslave.html">Serial upload slave</a></dt>
+
+
+<dd>A program for the Dreamcast that allows new software to be uploaded through the serial port and run.</dd>
+
+
+<dt><a href="files/makeip.tar.gz">IP creator</a></dt>
+
+
+<dd>Small utility for creating IP.BIN from a textual representation of IP0000.BIN.  Includes example textfile.</dd>
+
+
+<dt><a href="files/scramble.c">1ST_READ.BIN scrambler</a></dt>
+
+
+<dd>A program to do the neccessary scrambling of the binary file on bootable
+CDs.  Run with <tt>-d</tt> to descramble.</dd>
+
+
+<dt><a href="files/aslc86k.tar.gz">VMS assembler</a></dt>
+
+
+<dd>A macro assembler written in ANSI-C that can assemble programs of the
+Visual Memory System.  Version 1.9</dd>
+
+
+<dt><a href="files/sfr.i">VMS hardware register definition include file</a></dt>
+
+
+<dd>An include file for use with the assembler above that defines the
+addresses of all special function registers in the VMS.</dd>
+
+
+<dt><a href="files/lcdis.tar.gz">VMS disassembler</a></dt>
+
+
+<dd>A disassembler for VMS programs written by <a href="mailto:maushammer@tidalwave.net">John Maushammer</a>.  Source code version.
+You can find the newest version on <a href="http://www.tidalwave.net/~maushammer/vmu.html">John's site</a>.  Version 0.8ß</dd>
+
+
+<dt><a href="files/softvms.tar.gz">VMS emulator</a></dt>
+
+
+<dd>An emulator capable of running some VMS games.  Slighly more complete
+now...  Source for Dreamcast, UNIX, AmigaOS, MS-DOG and Wintendo.  Version 1.10.  <a href="files/softvms_dc.zip">Dreamcast binary</a> (scrambled) available.</dd>
+
+
+<dt><a href="files/dcmtools.tar.gz">Nexus memory card tools</a></dt>
+
+
+<dd>Alternative programs to read/write the contents of Nexus memory cards
+without using Wintendo.  Currently supports Solaris x86, Linux x86 and AmigaOS.  Version 1.4<br>
+
+<a href="nexus.gif">Cable schematics</a> are available.</dd>
+
+
+<dt>AmigaOS binaries</dt>
+
+
+<dd>Precompiled binaries of the above programs for AmigaOS (68k).  No ixemul
+required.  Emulator requires AmigaOS2.0 or higher (3.0 or higher preferred).
+
+<ul>
+
+
+<li><a href="files/amibin/aslc86k">Assembler</a></li>
+
+
+<li><a href="files/amibin/lcdis">Disassembler</a></li>
+
+
+<li><a href="files/amibin/softvms">Emulator</a></li>
+
+
+<li><a href="files/amibin/dcmtools.lha">Nexus memory card tools</a></li>
+
+
+</ul>
+
+</dd>
+
+
+</dl>
+
+
+
+
+
+
+<p><img alt="Example software" height="35" src="/_internal/graphic_text/hwhvnjki1vaw5xeayq6ziu4zt3iviz1$4etp3dlyh9iuvcc4m762nycmd65jqur" style="border: none;" valign="top" width="219" /></p>
+
+
+
+<p>
+The sofware in this section is in the <i>Public Domain</i>.  This means
+that I make no copyright claim for it, and that there is no license that
+restricts its usage.
+</p>
+
+
+
+<dl>
+
+
+<dt><a href="files/video.s">Simple DC video example</a></dt>
+
+
+<dd>Small assembler program setting up a screen and drawing some text
+on the DC.</dd>
+
+
+<dt><a href="files/serial.s">Simple DC serial example</a></dt>
+
+
+<dd>Small assembler program setting up and talking to the serial port
+of the DC.</dd>
+
+
+<dt><a href="files/maple.tar.gz">Maple Bus example</a></dt>
+
+
+<dd>Example program that does basic Maple Bus communication to list
+connected units.  (In C.)</dd>
+
+
+<dt><a href="files/cdfs.tar.gz">CD filesystem example</a></dt>
+
+
+<dd>Example program that reads CD-ROMs (not GDs).  (In C.)</dd>
+
+
+<dt><a href="files/sound.tar.gz">Sound example</a></dt>
+
+
+<dd>Example program that plays music.  (In C.)  (Requires ARM compiler.)</dd>
+
+
+<dt><a href="files/tatest.tar.gz">Hardware 3D graphics example</a></dt>
+
+
+<dd>Example of how to use the tile accelerator hardware to draw
+3D polygons.</dd>
+
+
+<dt><a href="files/tetris.s">VMS Tetris</a></dt>
+
+
+<dd>Example source code for a simple Tetris game.  Also available as
+<a href="files/TETRIS.VMS">binary</a> ready to upload to the VMS.
+(If you use Dream Passport you might need to select the
+<a href="files/TETRIS.VMI">VMI file</a> instead.)  Version 1.3</dd>
+
+
+</dl>
+
+
+
+
+<p><img alt="Applications" height="35" src="/_internal/graphic_text/hwhvnjki1vaw5xeayq6ziu4zt3iviz1$kspqkqskh2881p502mf0iswvne4i6cu" style="border: none;" valign="top" width="152" /></p>
+
+
+
+<dl>
+
+
+<dt><a href="dreamsnes/">DreamSNES</a></dt>
+
+
+<dd>Super Nintendo emulator for the Dreamcast.  (Still in beta.)  Version 0.9</dd>
+
+
+<dt><a href="fisa.html">Flash Internet Settings Adjuster</a></dt>
+
+
+<dd>A small tool for manipulating your modem (<i>not</i> Broadband) 
+ISP settings, in case the browser you were provided with does not allow
+you to (DreamKey...).</dd>
+
+
+</dl>
+
+
+
+<hr>
+<a href="http://www.roxen.com/"><img align="right" alt="Powered by Roxen" height="48" src="/internal-roxen-power-small-white" width="40" /></a><a href="http://mc.pp.se/dc/">Dreamcast Programming</a> by <i><a href="mailto:marcus@mc.pp.se">Marcus Comstedt</a></i><br>
+
+<!-- Created: Sun Jun 27 23:48:12 MET DST 1999 -->
+<!-- hhmts start -->
+Last modified: Sun Oct  3 19:33:43 CEST 2004
+<!-- hhmts end -->
+
+</top>
+</body>
+
+</html>
+

@@ -1,0 +1,895 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+
+<html>
+
+<head>
+
+<title>Dreamcast Programming - Maple Bus</title>
+
+</head>
+
+<body link="#6699cc" text="white" vlink="#6677cc" alink="red" bgcolor="black">
+<top>
+
+<img align="right" alt="" src="/dc/dc_mark.gif">
+
+<p><img alt="Maple Bus" height="43" src="/_internal/graphic_text/asw4kq4vlpnfxtobd3366p2z0ge0klc$lywj5r6tibcic6bdtm1dso5zpyvwh0k" style="border: none;" valign="top" width="154" /></p>
+
+
+The Maple Bus connects the Dreamcast with the controllers, memory cards, and other
+peripherals.  The bus uses a symmetrical serial protocol, described below.
+The actual wire protocol is described on <a href="maplewire.html">another
+page</a>, since it is only of interrest to people building their own
+peripherals.
+<br clear="right">
+
+
+
+<p>
+
+<p><img alt="Frame structure" height="35" src="/_internal/graphic_text/hwhvnjki1vaw5xeayq6ziu4zt3iviz1$8w8qd609wzt7dzg7vxxe4rnam3e76n4" style="border: none;" valign="top" width="193" /></p>
+
+
+Messages are sent on the Maple Bus encapsulated in <i>frames</i>.  A frame consists of one
+or more 32bit binary words.  The first word is the <i>frame header</i>, and contains the
+command number, sender and recipient information, and the number of additional words in
+the frame.  These additional words (if any) follows directly after the frame header, and
+contains parameters for the command.  The frame header and numeric parameters are in <i>big endian</i> byte order.  Fields of complex structures transfered (such as the <tt>deviceinfo</tt> and the <tt>cond</tt> structures) can be
+both big endian and little endian.  Refer to the description of the actual structure for more info.
+</p>
+
+
+
+<p>Frame header:
+
+
+<table cellspacing="0" border="0" cellpadding="1" bgcolor="#808020">
+
+<tr>
+
+<td>
+<table cellspacing="2" border="0" cellpadding="3">
+
+<tr>
+<th bgcolor="#404000">31-24</th><th bgcolor="#404000">23-16</th><th bgcolor="#404000">15-8</th><th bgcolor="#404000">7-0</th>
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">Command / Response code</td>
+
+<td bgcolor="#404000">Recipient address</td>
+
+<td bgcolor="#404000">Sender address</td>
+
+<td bgcolor="#404000">Number of additional words in frame</td>
+
+</tr>
+
+</table>
+</td>
+
+</tr>
+
+</table>
+
+</p>
+
+
+
+<p>The command/response code is one of a set of numeric codes listed in the
+<a href="#cmds">Commands</a> section below.  Positive codes are commands and success responses.
+Negative codes are error responses.</p>
+
+
+
+<p>The addresses of the sender of the frame and the intended recipient are given in the address
+format described under <a href="#addrfmt">Address format</a> below.</p>
+
+
+
+<p>The number of additional words field indicate the number of parameter/data words that follow
+the header.  If it is zero, the header is the only word in the frame.
+
+<a name="addrfmt">
+<p><img alt="Address format" height="35" src="/_internal/graphic_text/hwhvnjki1vaw5xeayq6ziu4zt3iviz1$1w58n4mvflrihlnghxxs5y87c7l6i84" style="border: none;" valign="top" width="189" /></p>
+</a>
+
+The Dreamcast has four Maple Bus ports.  On each of these ports, there are up to 7 addressable
+units.  The Dreamcast itself is always present.  There may also be a peripheral (controller,
+keyboard, etc.) connected to the port.  To this peripheral, there may be connected up to 5
+sub-peripherals (memory cards, microphones, etc.).  The address format specifies the port
+and the unit like this:
+
+
+<table cellspacing="0" border="0" cellpadding="1" bgcolor="#808020">
+
+<tr>
+
+<td>
+<table cellspacing="2" border="0" cellpadding="3">
+
+<tr>
+<th bgcolor="#404000">7-6</th><th bgcolor="#404000">5</th><th bgcolor="#404000">4</th><th bgcolor="#404000">3</th><th bgcolor="#404000">2</th><th bgcolor="#404000">1</th><th bgcolor="#404000">0</th>
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">Port number</td>
+
+<td bgcolor="#404000">Main peripheral</td>
+
+<td bgcolor="#404000">Sub-periph. 5</td>
+
+<td bgcolor="#404000">Sub-periph. 4</td>
+
+<td bgcolor="#404000">Sub-periph. 3</td>
+
+<td bgcolor="#404000">Sub-periph. 2</td>
+
+<td bgcolor="#404000">Sub-periph. 1</td>
+
+</tr>
+
+</table>
+</td>
+
+</tr>
+
+</table>
+
+
+The port number is given as a two-bit integer (0 being port A, and 3 port D), and the unit as
+a bit-field.  The address of the Dreamcast port itself is obtained when none of bits 0-5 are set.  When a main peripheral identifies itself in the response
+to a command, it sets the sub-peripheral bit for each sub-peripheral that is
+connected in addition to bit 5.
+
+
+<a name="funcc">
+<p><img alt="Function codes" height="35" src="/_internal/graphic_text/hwhvnjki1vaw5xeayq6ziu4zt3iviz1$42h8i5l49rfcuwtx1xalo2ndaxjzcmb" style="border: none;" valign="top" width="186" /></p>
+</a>
+
+There are many different types of peripherals performing different kinds of functions, and
+a single peripheral can implement multiple such functions.  For example, a <a href="vms/">VMS</a>
+can function as a memory card, as an LCD screen, and as a clock device.  Some Maple Bus
+commands have different semantics depending on what kind of peripheral they are targeted at.
+Because of this, they may take a function code that lets you specify what particular function
+you had in mind.  For example, when issuing a <i>block write</i> command to a VMS, the function
+code selects whether the data should be written to the LCD screen or to the flash memory.</p>
+
+
+
+<p>Available function codes:
+
+<table cellspacing="0" border="0" cellpadding="1" bgcolor="#808020">
+
+<tr>
+
+<td>
+<table cellspacing="2" border="0" cellpadding="3">
+
+<tr>
+<th bgcolor="#404000">Code</th><th bgcolor="#404000">Function</th>
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">$001</td>
+
+<td bgcolor="#404000">Controller</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">$002</td>
+
+<td bgcolor="#404000">Memory card</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">$004</td>
+
+<td bgcolor="#404000">LCD display</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">$008</td>
+
+<td bgcolor="#404000">Clock</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">$010</td>
+
+<td bgcolor="#404000">Microphone</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">$020</td>
+
+<td bgcolor="#404000">AR-gun</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">$040</td>
+
+<td bgcolor="#404000">Keyboard</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">$080</td>
+
+<td bgcolor="#404000">Light gun</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">$100</td>
+
+<td bgcolor="#404000">Puru-Puru pack</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">$200</td>
+
+<td bgcolor="#404000">Mouse</td>
+
+</tr>
+
+</table>
+</td>
+
+</tr>
+
+</table>
+
+
+
+<a name="cmds">
+<p><img alt="Commands" height="35" src="/_internal/graphic_text/hwhvnjki1vaw5xeayq6ziu4zt3iviz1$r10zrmekkwdg98ehk9ov5242nfq3s5o" style="border: none;" valign="top" width="140" /></p>
+</a>
+
+
+
+<table cellspacing="0" border="0" cellpadding="1" bgcolor="#808020">
+
+<tr>
+
+<td>
+<table cellspacing="2" border="0" cellpadding="3">
+
+<tr>
+<th bgcolor="#404000">Code</th><th bgcolor="#404000">Meaning</th><th bgcolor="#404000">Parameters</th><th bgcolor="#404000">Expected result</th>
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">1</td>
+
+<td bgcolor="#404000">Request device information</td>
+
+<td bgcolor="#404000"><i>none</i></td>
+
+<td bgcolor="#404000">5</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">2</td>
+
+<td bgcolor="#404000">Request extended device information</td>
+
+<td bgcolor="#404000"><i>none</i></td>
+
+<td bgcolor="#404000">6</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">3</td>
+
+<td bgcolor="#404000">Reset device</td>
+
+<td bgcolor="#404000"><i>none</i></td>
+
+<td bgcolor="#404000">7</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">4</td>
+
+<td bgcolor="#404000">Shutdown device</td>
+
+<td bgcolor="#404000"><i>none</i></td>
+
+<td bgcolor="#404000">7</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">5</td>
+
+<td bgcolor="#404000">Device information (response)</td>
+
+<td bgcolor="#404000"><tt>deviceinfo...</tt></td>
+
+<td bgcolor="#404000">-</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">6</td>
+
+<td bgcolor="#404000">Extended device information (response)</td>
+
+<td bgcolor="#404000"><tt>deviceinfo...</tt>, <tt>versionstring</tt></td>
+
+<td bgcolor="#404000">-</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">7</td>
+
+<td bgcolor="#404000">Command acknowledge (response)</td>
+
+<td bgcolor="#404000"><i>none</i></td>
+
+<td bgcolor="#404000">-</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">8</td>
+
+<td bgcolor="#404000">Data transfer (response)</td>
+
+<td bgcolor="#404000"><tt>transfer...</tt></td>
+
+<td bgcolor="#404000">-</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">9</td>
+
+<td bgcolor="#404000">Get condition</td>
+
+<td bgcolor="#404000"><tt>func</tt></td>
+
+<td bgcolor="#404000">8</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">10</td>
+
+<td bgcolor="#404000">Get memory information</td>
+
+<td bgcolor="#404000"><tt>func</tt>, <tt>pt&lt;&lt;24</tt></td>
+
+<td bgcolor="#404000">8</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">11</td>
+
+<td bgcolor="#404000">Block read</td>
+
+<td bgcolor="#404000"><tt>func</tt>, <tt>(pt&lt;&lt;24)|(phase&lt;&lt;16)|block</tt></td>
+
+<td bgcolor="#404000">8</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">12</td>
+
+<td bgcolor="#404000">Block write</td>
+
+<td bgcolor="#404000"><tt>func</tt>, <tt>(pt&lt;&lt;24)|(phase&lt;&lt;16)|block</tt>, <tt>data...</tt></td>
+
+<td bgcolor="#404000">7</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">14</td>
+
+<td bgcolor="#404000">Set condition</td>
+
+<td bgcolor="#404000"><tt>func</tt>, <tt>cond...</tt></td>
+
+<td bgcolor="#404000">7</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">-1</td>
+
+<td bgcolor="#404000">No response (set by Maple hardware, rest of frame header not valid)</td>
+
+<td bgcolor="#404000"><i>none</i></td>
+
+<td bgcolor="#404000">-</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">-2</td>
+
+<td bgcolor="#404000">Function code unsupported (response)</td>
+
+<td bgcolor="#404000"><i>none</i></td>
+
+<td bgcolor="#404000">-</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">-3</td>
+
+<td bgcolor="#404000">Unknown command (response)</td>
+
+<td bgcolor="#404000"><i>none</i></td>
+
+<td bgcolor="#404000">-</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">-4</td>
+
+<td bgcolor="#404000">Command needs to be sent again (response)</td>
+
+<td bgcolor="#404000"><i>none</i></td>
+
+<td bgcolor="#404000">-</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">-5</td>
+
+<td bgcolor="#404000">File error (response)</td>
+
+<td bgcolor="#404000"><tt>error</tt></td>
+
+<td bgcolor="#404000">-</td>
+
+</tr>
+
+</table>
+</td>
+
+</tr>
+
+</table>
+</p>
+
+
+
+<p>Explanation of parameters:
+
+
+<dl>
+
+
+<dt><tt>func</tt></dt>
+
+
+<dd>A <a href="#funcc">Function code</a> for the type of access you want to do.</dd>
+
+
+<dt><tt>transfer</tt></dt>
+
+
+<dd>Parameters dependant on the actual command sent.  For command 9 (get condition), they are <tt>func</tt>, <tt>cond...</tt>, for command 11 (block read), they are <tt>func</tt>, <tt>(pt&lt;&lt;24)|(phase&lt;&lt;16)|block</tt>, <tt>data...</tt></dd>
+
+
+<dt><tt>cond</tt></dt>
+
+
+<dd>Current condition for a particular function.  The actual contents vary with the different functions.</dd>
+
+
+<dt><tt>pt</tt></dt>
+
+
+<dd>Partition number.  Should be 0 for VMS:s.</dd>
+
+
+<dt><tt>phase</tt></dt>
+
+
+<dd>Sequence number for piecewise block access</dd>
+
+
+<dt><tt>block</tt></dt>
+
+
+<dd>Block number.  Use 0 for LCD screens.</dd>
+
+
+<dt><tt>error</tt></dt>
+
+
+<dd>A bit-field of errors that occured during memory access:
+
+<table cellspacing="0" border="0" cellpadding="1" bgcolor="#808020">
+
+<tr>
+
+<td>
+<table cellspacing="2" border="0" cellpadding="3">
+
+<tr>
+<th bgcolor="#404000">Code</th><th bgcolor="#404000">Error</th>
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">$01</td>
+
+<td bgcolor="#404000">Invalid partition number</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">$02</td>
+
+<td bgcolor="#404000">Phase error</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">$04</td>
+
+<td bgcolor="#404000">Invalid block number</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">$08</td>
+
+<td bgcolor="#404000">Write error</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">$10</td>
+
+<td bgcolor="#404000">Invalid length (use 192 bytes for LCD writes, 128 bytes for flash writes)</td>
+
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">$20</td>
+
+<td bgcolor="#404000">Bad CRC</td>
+
+</tr>
+
+</table>
+</td>
+
+</tr>
+
+</table>
+</dd>
+
+
+<dt><tt>deviceinfo...</tt></dt>
+
+
+<dd>A structure (28 words in total) describing the peripheral:
+<pre>int32 func                   ; function codes supported by this peripheral (or:ed together) (big endian)
+int32[3] function_data       ; additional info for the supported function codes (3 max) (big endian)
+int8 area_code               ; regional code of peripheral
+int8 connector_direction (?) ; physical orientation of bus connection
+char[30] product_name        ; name of peripheral
+char[60] product_license     ; license statement
+int16 standby_power          ; standby power consumption (little endian)
+int16 max_power              ; maximum power consumption (little endian)
+</pre></dd>
+
+
+</dl>
+
+</p>
+
+
+<a name="funcdata">
+<p><img alt="Function data" height="35" src="/_internal/graphic_text/hwhvnjki1vaw5xeayq6ziu4zt3iviz1$pmpq4b500vxdum6cvo9qbfk2yvvf9vv" style="border: none;" valign="top" width="165" /></p>
+</a>
+
+
+<p>
+The <tt>function_data</tt> array in the <tt>deviceinfo</tt> structure above
+contain additional device information for the different functions supported
+by a device.  Since the array contains three elements, there can be information
+about up to three functions at the same time.  No device should implement more
+than three simultaneous functions, or this array will not be enough.
+</p>
+
+
+
+<p>
+To find the correct entry in the array that corresponds to a particular
+function, it is necessary to study exactly which bits are set in the
+<tt>func</tt> field.  The <i>most significant</i> bit set corresponds to
+the function for which there is information in <tt>functions_data[0]</tt>.
+So if a device implements the functions "Memory card" and "Keyboard" (but no
+other functions), the first element in the array is "Keyboard" information,
+the second is "Memory card" information, and the third is unused.
+The actual interpretation of the 32-bit words depend on the corresponding
+function code.
+</p>
+
+
+
+
+<p><img alt="Hardware registers" height="35" src="/_internal/graphic_text/hwhvnjki1vaw5xeayq6ziu4zt3iviz1$kghy7u6uacqk7yvm8pn1iyd8qpx67gw" style="border: none;" valign="top" width="232" /></p>
+
+
+
+<p>
+Maple Bus communication is done by a single DMA channel.  The DMA controller
+will send any number of requests, and store the respective responses
+in memory (the hardware will wait a configurable amount of time for the
+response).
+</p>
+
+
+
+<p>
+
+<p><img alt="A05F6C04 - DMA pointer" height="23" src="/_internal/graphic_text/hlcfhu1cyw2cyj7k6g8xd5wjq7q2w5y$8b65bhctr9daohjtomkwra2q2b9b4nw" style="border: none;" valign="top" width="203" /></p>
+
+
+<table cellspacing="0" border="0" cellpadding="1" bgcolor="#808020">
+
+<tr>
+
+<td>
+<table cellspacing="2" border="0" cellpadding="3">
+
+<tr>
+<th bgcolor="#404000">31</th><th bgcolor="#404000">30</th><th bgcolor="#404000">29</th><th bgcolor="#404000">28</th><th bgcolor="#404000">27</th><th bgcolor="#404000">26</th><th bgcolor="#404000">25</th><th bgcolor="#404000">24</th><th bgcolor="#404000">23</th><th bgcolor="#404000">22</th><th bgcolor="#404000">21</th><th bgcolor="#404000">20</th><th bgcolor="#404000">19</th><th bgcolor="#404000">18</th><th bgcolor="#404000">17</th><th bgcolor="#404000">16</th><th bgcolor="#404000">15</th><th bgcolor="#404000">14</th><th bgcolor="#404000">13</th><th bgcolor="#404000">12</th><th bgcolor="#404000">11</th><th bgcolor="#404000">10</th><th bgcolor="#404000">9</th><th bgcolor="#404000">8</th><th bgcolor="#404000">7</th><th bgcolor="#404000">6</th><th bgcolor="#404000">5</th><th bgcolor="#404000">4</th><th bgcolor="#404000">3</th><th bgcolor="#404000">2</th><th bgcolor="#404000">1</th><th bgcolor="#404000">0</th>
+</tr>
+
+<tr>
+
+<td colspan="3"></td>
+
+<td colspan="24" bgcolor="#404000">Address</td>
+
+<td colspan="5"></td>
+
+</tr>
+
+</table>
+</td>
+
+</tr>
+
+</table>
+
+Set this register to point to your DMA buffer before starting DMA.  The address
+must be aligned to a 32-byte boundary, and should contain the physical address.  So 8C000000 becomes 0C000000.  The buffer pointed to by this register should contain one or more transfer descriptors, see below.
+</p>
+
+
+
+<p>
+
+<p><img alt="A05F6C18 - DMA enabled" height="23" src="/_internal/graphic_text/hlcfhu1cyw2cyj7k6g8xd5wjq7q2w5y$qzk1dtp94zredd2eiqoeuync1p01hlq" style="border: none;" valign="top" width="209" /></p>
+
+
+<table cellspacing="0" border="0" cellpadding="1" bgcolor="#808020">
+
+<tr>
+
+<td>
+<table cellspacing="2" border="0" cellpadding="3">
+
+<tr>
+<th bgcolor="#404000">31</th><th bgcolor="#404000">30</th><th bgcolor="#404000">29</th><th bgcolor="#404000">28</th><th bgcolor="#404000">27</th><th bgcolor="#404000">26</th><th bgcolor="#404000">25</th><th bgcolor="#404000">24</th><th bgcolor="#404000">23</th><th bgcolor="#404000">22</th><th bgcolor="#404000">21</th><th bgcolor="#404000">20</th><th bgcolor="#404000">19</th><th bgcolor="#404000">18</th><th bgcolor="#404000">17</th><th bgcolor="#404000">16</th><th bgcolor="#404000">15</th><th bgcolor="#404000">14</th><th bgcolor="#404000">13</th><th bgcolor="#404000">12</th><th bgcolor="#404000">11</th><th bgcolor="#404000">10</th><th bgcolor="#404000">9</th><th bgcolor="#404000">8</th><th bgcolor="#404000">7</th><th bgcolor="#404000">6</th><th bgcolor="#404000">5</th><th bgcolor="#404000">4</th><th bgcolor="#404000">3</th><th bgcolor="#404000">2</th><th bgcolor="#404000">1</th><th bgcolor="#404000">0</th>
+</tr>
+
+<tr>
+
+<td colspan="31"></td>
+
+<td bgcolor="#404000">ENA</td>
+
+</tr>
+
+</table>
+</td>
+
+</tr>
+
+</table>
+
+Set the ENA bit to 1 to start Maple DMA.  When the DMA is completed, ENA
+will return to a 0.
+</p>
+
+
+
+<p>
+
+<p><img alt="A05F6C80 - Timing control" height="23" src="/_internal/graphic_text/hlcfhu1cyw2cyj7k6g8xd5wjq7q2w5y$ve789ggbxit36sjeyezcipkcjmwqn" style="border: none;" valign="top" width="217" /></p>
+
+
+<table cellspacing="0" border="0" cellpadding="1" bgcolor="#808020">
+
+<tr>
+
+<td>
+<table cellspacing="2" border="0" cellpadding="3">
+
+<tr>
+<th bgcolor="#404000">31</th><th bgcolor="#404000">30</th><th bgcolor="#404000">29</th><th bgcolor="#404000">28</th><th bgcolor="#404000">27</th><th bgcolor="#404000">26</th><th bgcolor="#404000">25</th><th bgcolor="#404000">24</th><th bgcolor="#404000">23</th><th bgcolor="#404000">22</th><th bgcolor="#404000">21</th><th bgcolor="#404000">20</th><th bgcolor="#404000">19</th><th bgcolor="#404000">18</th><th bgcolor="#404000">17</th><th bgcolor="#404000">16</th><th bgcolor="#404000">15</th><th bgcolor="#404000">14</th><th bgcolor="#404000">13</th><th bgcolor="#404000">12</th><th bgcolor="#404000">11</th><th bgcolor="#404000">10</th><th bgcolor="#404000">9</th><th bgcolor="#404000">8</th><th bgcolor="#404000">7</th><th bgcolor="#404000">6</th><th bgcolor="#404000">5</th><th bgcolor="#404000">4</th><th bgcolor="#404000">3</th><th bgcolor="#404000">2</th><th bgcolor="#404000">1</th><th bgcolor="#404000">0</th>
+</tr>
+
+<tr>
+
+<td colspan="16" bgcolor="#404000">Timeout</td>
+
+<td colspan="6"></td>
+
+<td colspan="2" bgcolor="#404000">Speed</td>
+
+<td colspan="8"></td>
+
+</tr>
+
+</table>
+</td>
+
+</tr>
+
+</table>
+
+The Timeout controls how long the DMA hardware will wait for the response from
+a unit.  Speed should always be set to 0 (2Mbps).
+</p>
+
+
+
+<p>
+
+<p><img alt="Transfer Descriptor" height="23" src="/_internal/graphic_text/hlcfhu1cyw2cyj7k6g8xd5wjq7q2w5y$lqj0i3qj3afh0o70otq51w4vy8ucd2p" style="border: none;" valign="top" width="156" /></p>
+
+
+The transfer descriptors consist of two header words, and a Maple Bus packet
+consisting of 1-256 words of data.  The header is organized as follows
+(little endian):
+
+
+<table cellspacing="0" border="0" cellpadding="1" bgcolor="#808020">
+
+<tr>
+
+<td>
+<table cellspacing="2" border="0" cellpadding="3">
+
+<tr>
+<th bgcolor="#404000">31</th><th bgcolor="#404000">30</th><th bgcolor="#404000">29</th><th bgcolor="#404000">28</th><th bgcolor="#404000">27</th><th bgcolor="#404000">26</th><th bgcolor="#404000">25</th><th bgcolor="#404000">24</th><th bgcolor="#404000">23</th><th bgcolor="#404000">22</th><th bgcolor="#404000">21</th><th bgcolor="#404000">20</th><th bgcolor="#404000">19</th><th bgcolor="#404000">18</th><th bgcolor="#404000">17</th><th bgcolor="#404000">16</th><th bgcolor="#404000">15</th><th bgcolor="#404000">14</th><th bgcolor="#404000">13</th><th bgcolor="#404000">12</th><th bgcolor="#404000">11</th><th bgcolor="#404000">10</th><th bgcolor="#404000">9</th><th bgcolor="#404000">8</th><th bgcolor="#404000">7</th><th bgcolor="#404000">6</th><th bgcolor="#404000">5</th><th bgcolor="#404000">4</th><th bgcolor="#404000">3</th><th bgcolor="#404000">2</th><th bgcolor="#404000">1</th><th bgcolor="#404000">0</th>
+</tr>
+
+<tr>
+
+<td bgcolor="#404000">LAST</td>
+
+<td colspan="13"></td>
+
+<td colspan="2" bgcolor="#404000">PORT</td>
+
+<td colspan="6"></td>
+
+<td bgcolor="#404000">GUN</td>
+
+<td></td>
+
+<td colspan="8" bgcolor="#404000">LENGTH</td>
+
+</tr>
+
+<tr>
+
+<td colspan="3"></td>
+
+<td colspan="24" bgcolor="#404000">Result address</td>
+
+<td colspan="5"></td>
+
+</tr>
+
+</table>
+</td>
+
+</tr>
+
+</table>
+
+
+If the LAST bit is set, this is the last transfer descriptor.  Othewise, the
+next transfer descriptor is located right after the packet data.  The packet
+data, which consists of LENGTH+1 words, will be sent on controller port
+PORT, from whence the response will be expected.  The response is stored
+at the Result address.  If no response is received before the timeout, a word
+with all bits set (FFFFFFFF) is written at the Result address.  Exactly how
+much data is stored at the Result address depends on the response packet
+received, but the maximum size of a Maple Bus packet is 256 words (1024 bytes),
+so it's adviced to allocate this amount of memory for the result buffer.
+</p>
+
+
+
+<p>
+If the GUN bit is set, no data is sent or received (the result address is
+not present either).  Instead the bus enters GUN mode, where it will
+monitor controller port PORT for the remainder of the frame.  If a light
+gun signal is recieved during this time, the raster position will be
+latched into register <tt>A05F80C4</tt>.  A Transfer Descriptor with the
+GUN bit set should also have the LAST bit set.
+</p>
+
+
+
+<hr>
+<a href="http://www.roxen.com/"><img align="right" alt="Powered by Roxen" height="48" src="/internal-roxen-power-small-white" width="40" /></a><a href="http://mc.pp.se/dc/">Dreamcast Programming</a> by <i><a href="mailto:marcus@mc.pp.se">Marcus Comstedt</a></i><br>
+
+<!-- Created: Wed Feb  2 07:47:28 MET 2000 -->
+<!-- hhmts start -->
+Last modified: Sun Feb  4 22:36:46 MET 2001
+<!-- hhmts end -->
+
+</top>
+</body>
+
+</html>
+

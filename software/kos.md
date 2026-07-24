@@ -2,8 +2,12 @@
 
 Independent open-source SDK / pseudo-OS for Dreamcast homebrew.
 
-- https://github.com/KallistiOS/KallistiOS
-- Docs: https://kos-docs.dreamcast.wiki/
-- dreamcast.wiki Getting Started guides
+Primary modern development environment. Complements official Katana materials under the storage Kochise `SDK/` tree and the official PDFs in `files/official/`.
 
-Primary modern development environment. Complements official Katana materials.
+Living upstream (not vendored here — clone when developing):
+
+- Project: KallistiOS/KallistiOS on GitHub
+- Docs site: kos-docs.dreamcast.wiki
+- Wiki: dreamcast.wiki
+
+Emulator RE references: see [`tools/emulators.md`](../tools/emulators.md).

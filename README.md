@@ -1,143 +1,91 @@
 # Sega Dreamcast Documentation Repository
 
-Curated collection of publicly available Sega Dreamcast engineering specs, programmer guides, manuals, reverse-engineering notes, and completed/expanded documentation.
+Curated **offline** collection of Sega Dreamcast engineering specs, programmer guides, manuals, and reverse-engineering notes. Binary manuals live under [`files/`](files/).
 
-**Primary Sources (Best Collections)**
-- [SegaRetro Dreamcast official documentation](https://segaretro.org/Dreamcast_official_documentation) and direct PDFs
-  - [Dreamcast Hardware Specification Outline](https://segaretro.org/images/8/8b/Dreamcast_Hardware_Specification_Outline.pdf) (~40 pages, 1999)
-  - [Dreamcast/Dev.Box System Architecture](https://segaretro.org/images/7/78/DreamcastDevBoxSystemArchitecture.pdf) (407 pages, Rev 99/09/02)
-- [Kochise/dreamcast-docs](https://github.com/Kochise/dreamcast-docs) - Component tree with hardware docs, SDK material, schematics
-- [Marcus Comstedt Dreamcast Programming](http://mc.pp.se/dc/) - Detailed RE on SH-4, Maple bus, GD-ROM, memory map, PVR, controller protocols
-- [sega-dreamcast-info.com SDK archives](https://www.sega-dreamcast-info.com/en/dreamcast-develppement-sdk-library-archive) - Multiple Katana SDK releases (0.20 Pre.7 through R9, SET2/4/5), Shinobi/Kamui sources, Windows CE Toolkit
-- [Archive.org](https://archive.org) - Software Creation Standards Guidebook, consumer manuals, various SDK dumps
-- [Copetti - Dreamcast Architecture](https://www.copetti.org/writings/consoles/dreamcast/) - Practical analysis with citations
-- [KallistiOS / dreamcast.wiki](https://dreamcast.wiki) and [KOS docs](https://kos-docs.dreamcast.wiki/) - Homebrew SDK and community documentation
-- Hitachi/Renesas SH-4 manuals (linked via mc.pp.se and Renesas product pages)
-- Gamesurge / community technical pages for PowerVR Series 2 / CLX2 notes
+## Local Primary Sources (under `files/`)
 
-## Official Sega Documentation
+### Official hardware & standards
+- [Dreamcast Hardware Specification Outline](files/official/Dreamcast_Hardware_Specification_Outline.pdf) (~40 pp., 1999)
+- [Dreamcast/Dev.Box System Architecture](files/official/DreamcastDevBoxSystemArchitecture.pdf) (407 pp., Rev 99/09/02)
+- [Software Creation Standards Guidebook](files/official/scstandards.pdf)
+- [Hardware outline (Word, Kochise)](files/hardware/E_DC_HW_outline.doc)
+- [DC Schematic](files/hardware/DC%20Schematic.pdf)
+- [Sega Dreamcast Game Console BPT](files/hardware/Sega_Dreamcast_Game_Console-BPT.pdf)
 
-### Hardware Specifications
-- Dreamcast Hardware Specification Outline (E_DC_HW_outline, ~40pp): System block diagram, SH4, HOLLY (PVR2), AICA, GD-ROM, buses (G1/G2/Maple), memory map, video modes, power/clock.
-- Dreamcast/Dev.Box System Architecture (407pp): Detailed register-level architecture, bus protocols, component interactions for development kit and consumer hardware.
+### SH-4 (Hitachi)
+- [Programming Manual](files/sh4/h14tp003d2.pdf) (`h14tp003d2.pdf`)
+- [Hardware Manual](files/sh4/h14th002d2.pdf) (`h14th002d2.pdf`)
+- [Product Overview](files/sh4/h14sf001d2.pdf) (`h14sf001d2.pdf`)
 
-### Katana SDK / Development Libraries
-Multiple revisions available (Japanese/English mixes):
-- KATANA SDK 0.20 Pre.7, 0.40 Pre.2 / Release.4, 1.0B2
-- SDK Release 8 (European), Release 9 (European and others)
-- Sega Library Ver.1.00J
-- Windows CE Toolkit 1.1 for Dreamcast
-- Visual Memory Unit (VMU) SDK
-- Shinobi library source, Kamui (graphics) library source
-- Contents typically include: hardware manuals, programming guides, library references (Shinobi, Kamui), sample code, tools (compilers, graphics/sound), tech demos.
+### AICA (Yamaha) + ARM7TDMI references
+- Community notes: [`files/aica/aica.txt`](files/aica/aica.txt), [`files/aica/aica_v08.txt`](files/aica/aica_v08.txt)
+- ARM7 manuals (for the embedded ARM7DI core): see PDFs in [`files/aica/`](files/aica/)
 
-Links: see sega-dreamcast-info.com archives and Archive.org (e.g. dcsdk-9e).
-
-### Software Standards
-- Sega Dreamcast Software Creation Standards Guidebook (Archive.org: scstandards) - UI/UX, operational standards for titles.
-
-### Component Manuals
-- SH-4 / SH7750 / SH7091 Hardware Manual and Programming Manual (Hitachi)
-- AICA (FQ8005) Sound-block User's Manual (AICA_E.pdf)
-- Maple Bus 1.0 Peripheral Hardware Specifications (Controller, Gun, etc.)
-- VMU / Visual Memory System manuals
-
-### Other
-- Service manuals (EU/US variants)
-- Schematics (community/gamingdoc.org)
-
-**Full lists and direct downloads**: SegaRetro images, Kochise tree, sega-dreamcast-info.com, mc.pp.se, Archive.org.
-
-## Hardware
-
-### SH-4 (Hitachi / Renesas)
-- 200 MHz superscalar RISC, 360 MIPS, 1.4 GFLOPS, FPU, 8KB I-cache / 16KB D-cache (variants), MMU, DMAC.
-- Manuals: Programming (h14tp003d2.pdf), Hardware (h14th002d2.pdf), Product Overview via mc.pp.se/dc/cpu.html.
-- See hardware/sh4.md
-
-### HOLLY / PowerVR2 (CLX2) Graphics
-- NEC/VLSI HOLLY ASIC containing PowerVR Series 2 core @ 100 MHz.
-- Tile-based deferred rendering, texture formats, TA (Tile Accelerator), PVR, video output (NTSC/PAL/VGA).
-- 8 MB (expandable) texture memory.
-- Documented in Hardware Outline + Dev.Box Architecture; community PowerVR notes.
-- See hardware/holly.md / hardware/powervr.md
-
-### AICA (Yamaha)
-- Sound processor with ARM7DI core (~2.8 MHz effective), 64 PCM/ADPCM channels, DSP, 2 MB (expandable) wave memory, RTC.
-- Connected via G2 bus.
-- AICA_E.pdf + SDK docs + Kochise/AICA.
-- See hardware/aica.md
+### Maple / peripherals
+- [Maple patent PDF](files/maple/MaplePatent.pdf)
+- [VMU](files/vmu/vmu.pdf)
 
 ### GD-ROM
-- Yamaha drive, CAV 4x-12x, ~1 GB capacity (Mode 1), interface via G1 bus / HOLLY, digital audio to AICA.
-- See hardware/gdrom.md and mc.pp.se/dc/gdrom.html
+- Manuals and controller datasheets in [`files/gdrom/`](files/gdrom/) (incl. `gdrom-manual.pdf`, OTI/CXD parts)
 
-### Buses
-- G1 bus: GD-ROM, Boot ROM, high bandwidth to HOLLY.
-- G2 bus: AICA, modem, expansion (25 MHz, 16-bit).
-- Maple bus: serial peripheral interface (controllers, VMU, gun, etc.), up to 2 Mbps, hierarchical addressing.
-- See hardware/maple.md, hardware/g2bus.md; mc.pp.se Maple pages.
+### PowerVR / graphics notes
+- Full set under [`files/powervr/`](files/powervr/) (portal techniques, feature overviews, related MBX/PDP docs)
 
-### Memory Map & Boot
-- 16 MB main SDRAM (64-bit), 8 MB texture, 2 MB sound, 2 MB Boot ROM, 128 KB Flash.
-- IP.BIN / boot process analogous to Saturn but GD-ROM specific.
-- See hardware/memory.md, hardware/boot.md
+### G2 bus / expansion
+- [`files/g2bus/`](files/g2bus/)
 
-### Peripherals
-- Maple devices: Controller, Analog, VMU, Keyboard, Mouse, Gun, Modem, LAN Adapter, VGA Box, etc.
-- Specs in Maple peripheral docs + community RE.
+### Community RE (offline HTML)
+- Marcus Comstedt mirror pages: [`files/mcpp/`](files/mcpp/) (`cpu.html`, `maplebus.html`, `gdrom.html`, `pvr.html`, …)
+- Copetti Dreamcast architecture article: [`files/mcpp/copetti-dreamcast.html`](files/mcpp/copetti-dreamcast.html)
+
+### Full Kochise tree (too large for git)
+Complete Kochise dreamcast-docs mirror (including multi-GB SDK dumps) is kept on this machine at:
+
+`/mnt/storage/models/archive/docs-mirrors/Kochise-dreamcast-docs`
+
+Curated PDFs from that tree were copied into `files/` above.
+
+## Official Sega Documentation (indexed)
+
+### Hardware Specifications
+- Dreamcast Hardware Specification Outline — see local PDF above.
+- Dreamcast/Dev.Box System Architecture — see local PDF above.
+
+### Katana SDK / Development Libraries
+Multiple revisions exist historically (0.20 Pre.7 through R9, Shinobi/Kamui sources, WinCE Toolkit). Full SDK archives are in the Kochise storage mirror under `SDK/` (not committed to this git repo due to size ~3.8 GB).
+
+### Software Standards
+- Local: [`files/official/scstandards.pdf`](files/official/scstandards.pdf)
+
+### Component Manuals
+- SH-4, AICA ARM7 refs, Maple, GD-ROM — all under `files/` as listed above.
+
+## Hardware (summaries in this repo)
+
+| Component | Summary MD | Local manuals |
+|-----------|------------|---------------|
+| SH-4 | [`hardware/sh4.md`](hardware/sh4.md) | `files/sh4/*` |
+| HOLLY / PowerVR2 | [`hardware/holly.md`](hardware/holly.md) | `files/powervr/*`, official outline |
+| AICA | [`hardware/aica.md`](hardware/aica.md) | `files/aica/*` |
+| GD-ROM | [`hardware/gdrom.md`](hardware/gdrom.md) | `files/gdrom/*` |
+| Maple | [`hardware/maple.md`](hardware/maple.md) | `files/maple/*` |
+| Memory map | [`hardware/memory.md`](hardware/memory.md) | official + `files/mcpp/memory.html` |
 
 ## Software & Development
 
-### Official
-- Katana SDK (Shinobi high-level, Kamui low-level graphics)
-- Windows CE for Dreamcast (DirectX path)
-- Software Creation Standards
+- Official Katana materials: storage Kochise `SDK/`
+- Homebrew: see [`software/kos.md`](software/kos.md) (KallistiOS is living upstream; not vendored)
 
-### Homebrew / Modern
-- KallistiOS (KOS) - primary open SDK
-- DreamSDK, toolchains (gcc SH4)
-- See software/kos.md, tools/
+## Reverse Engineering
 
-## Reverse Engineering & Undocumented
-
-**Key Sources**
-- mc.pp.se detailed protocols
-- Copetti analysis
-- Emulator sources (Flycast, redream, WashingtonDC, Deecy)
-- SegaXtreme, dreamcast-talk, dreamcast.wiki threads
-- Kochise bare-metal notes
-
-**Known Gaps / Expanded Areas**
-- Exact HOLLY/PVR register timings and undocumented features (filled by emulator RE)
-- AICA DSP programming details beyond basic
-- GD-ROM command set edge cases and security
-- Maple device enumeration quirks
-- Flash/BIOS services
-
-See reverse-engineering/ for compiled notes.
+See [`reverse-engineering/quirks.md`](reverse-engineering/quirks.md) and offline Comstedt/Copetti HTML under `files/mcpp/`.
 
 ## Tools
 
-### Compilers & SDKs
-- Official Katana / CodeWarrior / Hitachi
-- Modern: gcc (KallistiOS toolchain), DreamSDK
-- See tools/compilers.md
-
-### Emulators
-- Flycast, redream, etc. (source for RE validation)
-- See tools/emulators.md
+- Emulators for RE validation: [`tools/emulators.md`](tools/emulators.md)
 
 ## Coverage Note
-This repository synthesizes publicly available official PDFs (Hardware Outline, Dev.Box Architecture, SH-4 manuals, AICA, Maple, SDK volumes), community RE (Comstedt, Kochise, Copetti, emulators), and homebrew resources (KOS).
 
-Structure mirrors saturn-docs for consistency:
-- hardware/ component summaries
-- official/
-- software/
-- tools/
-- reverse-engineering/
+This repository keeps **offline PDFs and HTML** for the core official and community manuals. Large SDK dumps stay on local storage only. Markdown under `hardware/`, `software/`, `tools/`, and `reverse-engineering/` summarizes and indexes the local files.
 
-Binary PDFs remain linked externally (size, copyright). Local MD files provide indexes, summaries, and RE expansions.
-
-Last updated: initial catalog 2026-07-23.
+Last updated: 2026-07-24 — offline harvest; external PDF URLs replaced with `files/` paths.

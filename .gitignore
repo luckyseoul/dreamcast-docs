@@ -1,0 +1,5 @@
+*.iso
+*.chd
+.DS_Store
+*.swp
+*~
