@@ -1,5 +1,10 @@
 # Sega Dreamcast Documentation Repository
 
+<p align="center">
+  <img src="logo.png" alt="Dreamcast docs" width="168" />
+</p>
+
+
 Curated **offline** collection of Sega Dreamcast engineering specs, programmer guides, manuals, and reverse-engineering notes. Binary manuals live under [`files/`](files/).
 
 ## Local Primary Sources (under `files/`)
