@@ -107,6 +107,8 @@ Sega Europe after-sales manual and the VA0 sheet set, from the RetroTechCollecti
 
 The EU manual covers disassembly, VA1 schematics, IC pinouts, and parts lists. It does not include a power-supply parts list. The VA0 power-supply sheet is the separate one-page PDF above.
 
+Early VA0 boards (circled 0 on the bottom sticker, heat-pipe cooler) take a 5 V BIOS flash. VA1 and VA2.1 boards take a 3.3 V flash. That distinction is repair practice from the archived mmmonkey region-free BIOS notes, not a line in the 022-EU scan. No separate public Japanese service-manual PDF turned up on this pass. The Internet Archive item `dreamcast-service-manual` is a 7.2 GB rar and was left unpacked.
+
 ## Kochise manuals not in the first harvest
 
 Official Sega Word/PDF docs copied out of the on-disk Kochise tree (`/mnt/storage/models/archive/docs-mirrors/Kochise-dreamcast-docs`). The multi-gigabyte `SDK/` tree and KOS source stay on disk only.
@@ -118,11 +120,14 @@ Official Sega Word/PDF docs copied out of the on-disk Kochise tree (`/mnt/storag
 | Broadband adapter + RTL8139 | [`files/kochise/LAN/DOCS/`](files/kochise/LAN/DOCS/) |
 | Modem chipset datasheets | [`files/kochise/MODEM/DOCS/`](files/kochise/MODEM/DOCS/) |
 | Holly interrupt note, Kamui, TA / PowerVR register notes | [`files/kochise/POWERVR/DOCS/`](files/kochise/POWERVR/DOCS/) |
-| SH7750 hardware manual (`e602124`), `sh7750h`, `e602156`, SH-4 limit note | [`files/kochise/CPU/DOCS/`](files/kochise/CPU/DOCS/) |
+| SH7750 hardware manual (`e602124`), `sh7750h`, `e602156` (ADE-602-156D Rev. 5.0, 2001-04-19), SH-4 limit note | [`files/kochise/CPU/DOCS/`](files/kochise/CPU/DOCS/) |
+| SH-4 Software Manual, Renesas REJ09B0318 Rev. 6.00 (2006-09-13) | [`files/kochise/CPU/DOCS/REJ09B0318-SH-4-Software-Manual-Rev6.00.pdf`](files/kochise/CPU/DOCS/REJ09B0318-SH-4-Software-Manual-Rev6.00.pdf) |
+| SH-4 CPU core architecture, SuperH Inc. 04-CC-10001 V1.0 (2002-05-27, cover marked preliminary) | [`files/kochise/CPU/DOCS/SH-4-CPU-Core-Architecture-04-CC-10001.pdf`](files/kochise/CPU/DOCS/SH-4-CPU-Core-Architecture-04-CC-10001.pdf) |
+| SH7750 errata that name HD6417750 or SH7750 | [`files/kochise/CPU/ERRATA/`](files/kochise/CPU/ERRATA/) |
 | Serial coder-cable schematic | [`files/kochise/SERIAL/SCHS/dccircuit.pdf`](files/kochise/SERIAL/SCHS/dccircuit.pdf) |
 
 ## Coverage Note
 
 This repository keeps **offline PDFs and HTML** for the core official and community manuals. Large SDK dumps stay on local storage only. Markdown under `hardware/`, `software/`, `tools/`, and `reverse-engineering/` summarizes and indexes the local files.
 
-Last updated: 2026-10-12 — EU service manual, VA0 schematics, and the Kochise peripheral / GD-ROM / BBA / modem / Holly docs.
+Last updated: 2026-10-12 — EU service manual, VA0 schematics, Kochise peripheral docs, the 2006 SH-4 software manual, and the SH7750 errata. SH7750R-only, SH7751-only, SH-4A, and SH-5 sheets stay on the Kochise disk.
