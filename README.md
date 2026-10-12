@@ -95,8 +95,34 @@ See [`reverse-engineering/quirks.md`](reverse-engineering/quirks.md) and offline
 
 - Emulators for RE validation: [`tools/emulators.md`](tools/emulators.md)
 
+## Service manuals and VA0 schematics
+
+Sega Europe after-sales manual and the VA0 sheet set, from the RetroTechCollection wiki (the service manual scan originates in the Internet Archive item `dreamcast-service-manual`):
+
+| Document | Local file |
+|----------|------------|
+| Service Manual: Dreamcast EU, No. 022-EU (October 1999, VA1) | [`files/service/Sega_Dreamcast_EU_Service_Manual_022-EU.pdf`](files/service/Sega_Dreamcast_EU_Service_Manual_022-EU.pdf) |
+| VA0 block, clock, reset | [`files/service/`](files/service/) `Sega_Dreamcast_VA0_Block_Diagram.pdf`, `Sega_Dreamcast_Clock_Diagram.pdf`, `Sega_Dreamcast_Reset_Diagram.pdf` |
+| VA0 CPU/DRAM, GPU/VRAM, video DAC, ROM/flash/IO, connectors, sound/clock, power supply (837-13570), exploded view | [`files/service/`](files/service/) |
+
+The EU manual covers disassembly, VA1 schematics, IC pinouts, and parts lists. It does not include a power-supply parts list. The VA0 power-supply sheet is the separate one-page PDF above.
+
+## Kochise manuals not in the first harvest
+
+Official Sega Word/PDF docs copied out of the on-disk Kochise tree (`/mnt/storage/models/archive/docs-mirrors/Kochise-dreamcast-docs`). The multi-gigabyte `SDK/` tree and KOS source stay on disk only.
+
+| Set | Local path |
+|-----|------------|
+| Peripherals (gun, keyboards, Dreameye, mouse, mic, vibration, fishing, Maple, Ft0–Ft11) | [`files/kochise/CONTROLR/DOCS/`](files/kochise/CONTROLR/DOCS/) |
+| GD-ROM format / CD interface (Word) | [`files/kochise/GDROM/DOCS/`](files/kochise/GDROM/DOCS/) |
+| Broadband adapter + RTL8139 | [`files/kochise/LAN/DOCS/`](files/kochise/LAN/DOCS/) |
+| Modem chipset datasheets | [`files/kochise/MODEM/DOCS/`](files/kochise/MODEM/DOCS/) |
+| Holly interrupt note, Kamui, TA / PowerVR register notes | [`files/kochise/POWERVR/DOCS/`](files/kochise/POWERVR/DOCS/) |
+| SH7750 hardware manual (`e602124`), `sh7750h`, `e602156`, SH-4 limit note | [`files/kochise/CPU/DOCS/`](files/kochise/CPU/DOCS/) |
+| Serial coder-cable schematic | [`files/kochise/SERIAL/SCHS/dccircuit.pdf`](files/kochise/SERIAL/SCHS/dccircuit.pdf) |
+
 ## Coverage Note
 
 This repository keeps **offline PDFs and HTML** for the core official and community manuals. Large SDK dumps stay on local storage only. Markdown under `hardware/`, `software/`, `tools/`, and `reverse-engineering/` summarizes and indexes the local files.
 
-Last updated: 2026-07-24 — offline harvest; external PDF URLs replaced with `files/` paths.
+Last updated: 2026-10-12 — EU service manual, VA0 schematics, and the Kochise peripheral / GD-ROM / BBA / modem / Holly docs.

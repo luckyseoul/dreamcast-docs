@@ -9,4 +9,10 @@
 - [x] Markdown indexes rewritten to local paths
 - [x] Full Kochise tree archived at `/mnt/storage/models/archive/docs-mirrors/Kochise-dreamcast-docs` (not in git)
 
-_Updated 2026-07-24_
+## 2026-10-12
+
+- EU service manual 022-EU and VA0 schematic sheets under `files/service/`
+- Kochise peripheral, GD-ROM, LAN, modem, Holly/Kamui, and SH7750 manuals under `files/kochise/`
+- SDK tree and KOS sources still stay on `/mnt/storage/models/archive/docs-mirrors/Kochise-dreamcast-docs`
+
+_Updated 2026-10-12_
